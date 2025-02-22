@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    DEPLOY_BUCKET: "pegen-deploymentbucket"
+    STACK_NAME: "pegllmb-assesstment01-stk"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+  build:
+    commands:
+      - echo "Building Lambda package" on `date`
+      - pip install -r app/requirements.txt -t .
+      - zip -r function.zip *
+      - echo Build completed on `date`
+  post_build:
+    commands:
+      - echo "Deploying Lambda package to AWS Lambda"
+      - aws cloudformation delete-stack --stack-name $STACK_NAME
+      - echo "Waiting for stak $STACK_NAME deleting"
+      - aws cloudformation wait stack-delete-complete --stack-name $STACK_NAME
+      - aws cloudformation package --template-file template.yml --s3-bucket $DEPLOY_BUCKET --output-template-file output.yml
+      - aws cloudformation deploy --template-file output.yml --stack-name $STACK_NAME --capabilities CAPABILITY_NAMED_IAM --parameter-overrides Env=dev
+      - echo Deployment completed on `date`
