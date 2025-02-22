@@ -6,7 +6,7 @@ from botocore.exceptions import ClientError
 CLUSTER_NAME = os.environ["ECS_CLUSTER"]
 TASK_DEFINITION = os.environ["TASK_DEFINITION"]
 SUBNETS = os.environ["SUBNETS"].split(',')
-SECURITY_GROUPS = os.environ["SECURITY_GROUPS"]
+SECURITY_GROUPS = os.environ["SECURITY_GROUPS"].split(',')
 
 """
 Return db credentials
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
             overrides={
                 "containerOverrides": [
                     {
-                        "name": "nombre-del-contenedor",
+                        "name": "peglecr-assessment01",
                         "environment": container_env_vars
                     }
                 ]
