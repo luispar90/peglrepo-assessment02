@@ -37,7 +37,7 @@ Resources:
       MemorySize: 128
       Environment:
         Variables:
-          ECS_CLUSTER: peglsrv-ecs-assessment01
+          ECS_CLUSTER: peglecs-assessment01
           TASK_DEFINITION: pegltsk-assessment01
           SUBNETS: subnet-043df85b1be85cb0e, subnet-054c55be19102e3ba
           SECURITY_GROUPS: sg-02c620c8d4d8b6a43
