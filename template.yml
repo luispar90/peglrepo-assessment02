@@ -29,7 +29,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       FunctionName: pegllmb-assessment02
-      Handler: src.lambda_function.handler.lambda_handler
+      Handler: app.lambda_function.handler.lambda_handler
       Runtime: python3.9
       Role: !GetAtt LambdaExecutionRole.Arn
       Timeout: 30
